@@ -31,11 +31,20 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  function VariantLabel({ type }) {
+    console.log(type);
+    if (type === 'on-sale') {
+      return <Variant back={COLORS.primary}>Sale</Variant>;
+    }
+    return <Variant back={COLORS.secondary}>Just Released!</Variant>;
+  }
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {variant !== 'default' && <VariantLabel type={variant} />}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -61,10 +70,26 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Variant = styled.div`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  background: ${(p) => p.back};
+  color: white;
+  padding: 7px 12px;
+  border-radius: 2px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  object-fit: cover;
+  border-radius: 16px 16px 4px 4px;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
